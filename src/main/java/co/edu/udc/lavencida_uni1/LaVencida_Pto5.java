@@ -17,7 +17,7 @@ public class LaVencida_Pto5 {
 
         System.out.println("\n-----------------Bienvenido al Punto 5-------------------");
         //creamos la matriz (bidimencional) y le asignamos el tamaño
-        String[][] lenguajes = new String[8][5];
+        Object[][] lenguajes = new Object[8][5];
         //llenamos la primea fila como di fueran encabezados fijos de una tabla
         lenguajes[0][0] = "NOMBRE";
         lenguajes[0][1] = "AÑO";
@@ -60,19 +60,27 @@ public class LaVencida_Pto5 {
                     ConsultValuesForCoords();
                     break;
                 case "i":
-                    System.out.println("porfavor ingrese en true las columna que quiere ver ejem:");
-                    System.out.println("[NOMBRE,  AÑO,   AUTOR,  DETALLES, FRAMEWORKS].");
-                    System.out.println("  true,  false,  true,     true,     false");
+                    System.out.println("Porfavor ingrese en true las columna que quiere ver ejem:");
+                    System.out.println("[NOMBRE AÑO AUTOR DETALLES FRAMEWORKS].");
+                    System.out.println("     (true false true true false)      ");
                     String hidecolums = scanner.nextLine();
 
                     boolean[] Columns = new boolean[5];
-                    Columns[0] = true;
-                    Columns[1] = false;
-                    Columns[2] = true;
-                    Columns[3] = true;
-                    Columns[4] = false;
 
-                    HideOrViewColumns(Columns);
+                    // Validar la cantidad de valores
+                    if (hidecolums.split(" ").length != Columns.length) {
+                        System.out.println("Error: La cantidad de valores no coincide con la cantidad de columnas.");
+                        System.out.println("Intentelo de nuevo.");
+                        break;
+                    }
+
+                    // Convertir la entrada a un array de booleanos
+                    String[] columnValues = hidecolums.split(" ");
+                    for (int i = 0; i < columnValues.length; i++) {
+                        Columns[i] = Boolean.parseBoolean(columnValues[i]);
+                    }
+
+                    HideOrViewColumns(Columns, lenguajes);
                     break;
 
                 default:
@@ -105,7 +113,10 @@ public class LaVencida_Pto5 {
 
     }
 
-    public static void HideOrViewColumns(boolean[] Columns) {
+    public static void HideOrViewColumns(boolean[] Columns, Object[][] lenguajes) {
+        for (int i = 0; i < Columns.length; i++) {
+            System.out.println(Columns[i]);
+        }
 
     }
 
